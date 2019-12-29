@@ -135,6 +135,7 @@ vector<string> LinuxParser::CpuUtilization() {
         if ("cpu" == key) {
             while(linestream >> key) {
                 cpu_utilization.push_back(key);
+                // std::cout << "cpu_utilization.back(): " << cpu_utilization.back() << std::endl;
             }
         }
       }
@@ -269,4 +270,6 @@ string LinuxParser::User(int pid) {
 
 // TODO: Read and return the uptime of a process
 // REMOVE: [[maybe_unused]] once you define the function
-long LinuxParser::UpTime(int pid[[maybe_unused]]) { return 0; }
+long LinuxParser::UpTime(int pid) {
+    return 0;
+}
