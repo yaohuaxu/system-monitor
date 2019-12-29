@@ -117,14 +117,14 @@ vector<long> LinuxParser::ActiveJiffies(int pid) {
     string line;
     string value;
     vector<long> time;
-    std::ifstream stream(kProcDirectory + std::to_string(pid) + kStatFilename);\
+    std::ifstream stream(kProcDirectory + std::to_string(pid) + kStatFilename);
     if (stream.is_open()) {
         std::getline(stream, line);
         std::istringstream linestream(line);
         int i = 1;
         while(linestream >> value) {
             if ((i >=14 && i <= 17) || (22 == i)) {
-                time.emplace_back(std::stol(value));
+                time.emplace_back(std::stol(value) / sysconf(_SC_CLK_TCK));
             }
             i++;
         }
@@ -203,24 +203,14 @@ int LinuxParser::RunningProcesses() {
 // TODO: Read and return the command associated with a process
 // REMOVE: [[maybe_unused]] once you define the function
 string LinuxParser::Command(int pid) {
-    // string command;
-    string value;
     string line;
 
     std::ifstream stream(kProcDirectory + std::to_string(pid) + kCmdlineFilename);
     if (stream.is_open()) {
         std::getline(stream, line);
-
-        return line;
-        // std::replace(line.begin(), line.end(), '\0', ' ');
-        // std::istringstream linestream(line);
-        // while (linestream >> value) {
-        //     command += value;
-        // }
-        // return command;
     }
 
-    return "Invalid";
+    return line;
 }
 
 // TODO: Read and return the memory used by a process
@@ -282,7 +272,6 @@ string LinuxParser::User(int pid) {
     if (stream.is_open()) {
         while (std::getline(stream, line)) {
             std::replace(line.begin(), line.end(), ':', ' ');
-            // std::replace(line.begin(), line.end(), 'x', ' ');
             std::istringstream linestream(line);
             while (linestream >> user >> skip >> value) {
                 if (Uid(pid) == value) {
@@ -307,7 +296,7 @@ long LinuxParser::UpTime(int pid) {
         for (int i = 0; i <= 21; i++) {
             linestream >> value;
         }
-        std::cout << "---UpTime: " << std::stol(value) / sysconf(_SC_CLK_TCK) << ", value: " << value;
+        // std::cout << "---UpTime: " << std::stol(value) / sysconf(_SC_CLK_TCK) << ", value: " << value;
         return std::stol(value) / sysconf(_SC_CLK_TCK);
     }
     return 0;
