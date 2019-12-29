@@ -17,6 +17,8 @@ regex
 -
 string
 -
+vector
+-
 
 ../include/ncurses_display.h
 curses.h
@@ -56,6 +58,8 @@ unistd.h
 string
 -
 vector
+-
+iostream
 -
 linux_parser.h
 /home/xyh/github_yaohuaxu/system-monitor/src/linux_parser.h
@@ -97,10 +101,20 @@ vector
 -
 process.h
 /home/xyh/github_yaohuaxu/system-monitor/src/process.h
+linux_parser.h
+/home/xyh/github_yaohuaxu/system-monitor/src/linux_parser.h
 
 /home/xyh/github_yaohuaxu/system-monitor/src/processor.cpp
 processor.h
 /home/xyh/github_yaohuaxu/system-monitor/src/processor.h
+linux_parser.h
+/home/xyh/github_yaohuaxu/system-monitor/src/linux_parser.h
+string
+-
+iostream
+-
+vector
+-
 
 /home/xyh/github_yaohuaxu/system-monitor/src/system.cpp
 unistd.h
@@ -119,4 +133,6 @@ processor.h
 /home/xyh/github_yaohuaxu/system-monitor/src/processor.h
 system.h
 /home/xyh/github_yaohuaxu/system-monitor/src/system.h
+linux_parser.h
+/home/xyh/github_yaohuaxu/system-monitor/src/linux_parser.h
 
