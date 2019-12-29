@@ -46,7 +46,7 @@ string LinuxParser::Kernel() {
   return kernel;
 }
 
-// BONUS: Update this to use std::filesystem
+// // BONUS: Update this to use std::filesystem
 vector<int> LinuxParser::Pids() {
   vector<int> pids;
   DIR* directory = opendir(kProcDirectory.c_str());
@@ -67,12 +67,34 @@ vector<int> LinuxParser::Pids() {
   return pids;
 }
 
+// vector<int> LinuxParser::Pids() {
+//     vector<int> pids;
+//     string line;
+//     string value;
+//     std::ifstream stream(kProcDirectory);
+//     if (stream.is_open()) {
+//         while (std::getline(stream, line)) { //TODO: error!!!
+//             std::istringstream linestream(line);
+//             while(linestream >> value) {
+//                 if (std::all_of(line.begin(), line.end(), isdigit)) {
+//                     const int pid = std::stoi(value);
+//                     pids.emplace_back(pid);
+//                 }
+//             }
+//         }
+//     }
+
+//     std::cout << "pid_size(): " << pids.size() << std::endl;
+
+//     return pids;
+// }
+
 // TODO(ok): Read and return the system memory utilization
 float LinuxParser::MemoryUtilization() {
-  float memory_total;
-  float memory_free;
+  long memory_total;
+  long memory_free;
   string key;
-  float value;
+  long value;
   string line;
   std::ifstream stream(kProcDirectory + kMeminfoFilename);
   if (stream.is_open()) {
@@ -84,7 +106,7 @@ float LinuxParser::MemoryUtilization() {
           memory_total = value;
         } else if (key == "MemFree") {
           memory_free = value;
-          return (float)(memory_total - memory_free) / memory_total;
+          return (float)(memory_total - memory_free) / (float)memory_total;
         }
       }
     }
